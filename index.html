@@ -2,52 +2,136 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>CSV Viewer</title>
+  <title>Racao Viewer</title>
   <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 900px;
+    }
     table {
       border-collapse: collapse;
-      margin-top: 20px;
       width: 100%;
+      margin-top: 20px;
     }
-    td, th {
+    th, td {
       border: 1px solid #ccc;
       padding: 6px;
+    }
+    #results {
+      margin-top: 20px;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
 
-<input type="file" id="csvFile" accept=".csv">
+<h2>Racao De Carregada Viewer</h2>
 
-<table id="output"></table>
+<input type="file" id="csvFiles" accept=".csv" multiple>
+
+<br><br>
+
+<label>Start date:</label>
+<input type="date" id="startDate">
+
+<label>End date:</label>
+<input type="date" id="endDate">
+
+<button id="applyFilter">Apply Filter</button>
+
+<div id="results"></div>
 
 <script>
-  document.getElementById("csvFile").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+  let allRows = [];
 
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      const text = event.target.result;
-      const rows = text.split("\n").map(r => r.split(","));
-      
-      const table = document.getElementById("output");
-      table.innerHTML = "";
+  document.getElementById("csvFiles").addEventListener("change", function (e) {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
 
-      rows.forEach((row, i) => {
-        const tr = document.createElement("tr");
-        row.forEach(cell => {
-          const elem = i === 0 ? "th" : "td";
-          const td = document.createElement(elem);
-          td.textContent = cell.trim();
-          tr.appendChild(td);
+    allRows = [];
+    let pending = files.length;
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const text = event.target.result.trim();
+        const lines = text.split("\n");
+
+        // Always skip header row
+        lines.slice(1).forEach(line => {
+          const parts = line.split(",");
+          if (parts.length < 9) return;
+
+          const date = parts[0].trim(); // 02-10-25
+          const time = parts[1].trim(); // 09:50:39
+          const acude = parts[4].trim();
+          const racao = parseFloat(parts[8]);
+
+          allRows.push({ date, time, acude, racao });
         });
-        table.appendChild(tr);
-      });
-    };
 
-    reader.readAsText(file);
+        if (--pending === 0) {
+          alert("Files loaded. Select dates and press Apply Filter.");
+        }
+      };
+
+      reader.readAsText(file);
+    });
   });
+
+  document.getElementById("applyFilter").addEventListener("click", function () {
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+
+    if (!start || !end) {
+      alert("Please choose a start and end date.");
+      return;
+    }
+
+    const startTime = new Date(start).getTime();
+    const endTime = new Date(end).getTime();
+
+    const filtered = allRows.filter(r => {
+      const t = csvDateToTime(r.date, r.time);
+      return t >= startTime && t <= endTime;
+    });
+
+    const totals = {};
+
+    filtered.forEach(r => {
+      if (!totals[r.acude]) totals[r.acude] = 0;
+      if (!isNaN(r.racao)) totals[r.acude] += r.racao;
+    });
+
+    showTotals(totals);
+  });
+
+  function csvDateToTime(date, time) {
+    // CSV date format is DD-MM-YY (example: 02-10-25)
+    const [d, m, y] = date.split("-").map(Number);
+    const [hh, mm, ss] = time.split(":").map(Number);
+    return new Date(2000 + y, m - 1, d, hh, mm, ss).getTime();
+  }
+
+  function showTotals(totals) {
+    const div = document.getElementById("results");
+    div.innerHTML = "<h3>Total Racao_decarregada per Acude</h3>";
+
+    const table = document.createElement("table");
+
+    const header = document.createElement("tr");
+    header.innerHTML = "<th>Acude</th><th>Total Racao_decarregada</th>";
+    table.appendChild(header);
+
+    Object.keys(totals).forEach(acude => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${acude}</td><td>${totals[acude].toFixed(2)}</td>`;
+      table.appendChild(tr);
+    });
+
+    div.appendChild(table);
+  }
 </script>
 
 </body>
