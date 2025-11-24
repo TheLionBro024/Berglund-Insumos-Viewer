@@ -2,36 +2,185 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Visor Multi-CSV con Exportación a Excel</title>
+<title>Insumos de Berglund S.A.</title>
+
 <style>
-body { font-family: Arial, sans-serif; background: #0D3B66; color: #FAF0CA; padding: 20px; }
-h2 { margin-bottom: 12px; }
-input, button { padding: 6px; border-radius: 6px; border: 1px solid #FAF0CA; background: #1a1f36; color: #FAF0CA; margin-top: 4px; }
-table { border-collapse: collapse; width: 100%; margin-top: 12px; }
-th, td { border: 1px solid #ccc; padding: 6px; text-align: right; }
-th:first-child, td:first-child { text-align: left; }
-th { background: #0D3B66; color: #FAF0CA; }
-tr:hover { background: #1a1f36; }
-button { cursor:pointer; background:#0D3B66; color:#FAF0CA; border:none; margin-top:6px; }
-button:hover:not(:disabled) { background:#081a3f; }
-button:disabled { opacity:0.5; cursor:not-allowed; }
-.paging-controls { margin-top: 10px; display:flex; align-items:center; gap:10px; }
+/* ============================================
+   Green Glow Aesthetic Variables
+============================================ */
+:root {
+  --bg-color: #0b0f17;
+  --card-color: #121826;
+  --text-color: #d5ffe0;
+  --accent: #00ff88;
+  --accent-soft: #00ff8855;
+  --border-color: #00ff8844;
+  --radius: 8px;
+  --transition: 0.18s ease;
+  --font: "Arial", sans-serif;
+}
+
+/* ============================================
+   GLOBAL STYLE
+============================================ */
+body {
+  font-family: var(--font);
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: 28px;
+  line-height: 1.5;
+}
+
+h2 {
+  margin-bottom: 16px;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-soft);
+}
+
+/* ============================================
+   INPUTS + BUTTONS
+============================================ */
+input, button {
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background: var(--card-color);
+  color: var(--text-color);
+  margin-top: 6px;
+  margin-bottom: 20px;
+  transition: var(--transition);
+  box-shadow: 0 0 7px var(--accent-soft);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 17px var(--accent-soft);
+}
+
+button {
+  cursor: pointer;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 0 8px var(--accent-soft);
+}
+
+button:hover:not(:disabled) {
+  background: #00e67a;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   CONTROLS AREA
+============================================ */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--card-color);
+  padding: 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  box-shadow: 0 0 14px var(--accent-soft);
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.paging-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkbox {
+  width: auto;
+  margin-top: 12px;
+  accent-color: var(--accent);
+}
+
+/* ============================================
+   TABLE
+============================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 14px var(--accent-soft);
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: right;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+th {
+  background: #0e1524;
+  color: var(--accent);
+  text-shadow: 0 0 4px var(--accent-soft);
+}
+
+tr:hover td {
+  background: rgba(0, 255, 136, 0.05);
+}
+
+/* cleaner first-row border */
+tr:last-child td {
+  border-bottom: none;
+}
 </style>
 </head>
+
 <body>
 
-<h2>Visor Multi-CSV</h2>
+<h2>Balanceados Insumos de Berglund S.A.</h2>
 
 <input type="file" id="csvFile" accept=".csv" multiple>
 
 <div class="controls">
-  <label>Fecha inicio:<input type="date" id="startDate"></label>
-  <label>Fecha fin:<input type="date" id="endDate"></label>
-  <label>Pileta:<input type="number" id="piletaSelector" placeholder="Dejar vacío para todas"></label>
-  <label><input type="checkbox" id="sumMode"> Sumar piletas</label>
-  <label>Líneas por página:<input type="number" id="rowsPerPage" min="1" value="20"></label>
+  <label>Fecha inicio:
+    <input type="date" id="startDate">
+  </label>
+
+  <label>Fecha fin:
+    <input type="date" id="endDate">
+  </label>
+
+  <label>Pileta:
+    <input type="number" id="piletaSelector" placeholder="Dejar vacío para todas">
+  </label>
+
+  <label>
+    <input type="checkbox" id="sumMode" class="checkbox"> Sumar piletas
+  </label>
+
+  <label>Líneas por página:
+    <input type="number" id="rowsPerPage" min="1" value="20">
+  </label>
+
   <button id="applyFilter">Aplicar filtro</button>
   <button id="exportExcel" style="display:none;">Exportar a Excel</button>
+
   <div class="paging-controls">
     <button id="prevPage" disabled>Anterior</button>
     <span id="pageInfo"></span>
@@ -41,14 +190,17 @@ button:disabled { opacity:0.5; cursor:not-allowed; }
 
 <table id="output"></table>
 
+<!-- JS  -->
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 <script>
 let headers=[], originalRows=[], filteredData=[], currentPage=1, totalPages=1;
 
 document.getElementById("csvFile").addEventListener("change", e=>{
-  const files=[...e.target.files]; 
+  const files=[...e.target.files];
   if(!files.length) return;
-  originalRows=[]; headers=[];
+
+  originalRows=[];
+  headers=[];
   let allData=[], filesRead=0;
 
   files.forEach(file=>{
@@ -56,7 +208,8 @@ document.getElementById("csvFile").addEventListener("change", e=>{
     reader.onload=ev=>{
       const lines=ev.target.result.split(/\r?\n/).filter(l=>l.trim());
       const rows=lines.map(l=>l.split(",").map(v=>v.trim()));
-      allData.push(rows); filesRead++;
+      allData.push(rows);
+      filesRead++;
       if(filesRead===files.length) mergeData(allData);
     };
     reader.readAsText(file);
@@ -65,58 +218,79 @@ document.getElementById("csvFile").addEventListener("change", e=>{
 
 function mergeData(dataList){
   const allHeaders=new Set();
-  dataList.forEach(rows=>rows[0].forEach(h=>allHeaders.add(h.trim())));
+  dataList.forEach(rows => rows[0].forEach(h => allHeaders.add(h.trim())));
   headers=[...allHeaders];
+
   const merged=[];
   dataList.forEach(rows=>{
-    const map=rows[0].map(h=>headers.indexOf(h.trim()));
+    const map=rows[0].map(h => headers.indexOf(h.trim()));
     for(let i=1;i<rows.length;i++){
-      const r=new Array(headers.length).fill("");
-      rows[i].forEach((v,idx)=>{ 
-        if(map[idx]>=0) r[map[idx]]=v.trim(); 
-      });
-      merged.push(r);
+      const row=new Array(headers.length).fill("");
+      rows[i].forEach((v,idx)=>{ if(map[idx]>=0) row[map[idx]]=v.trim(); });
+      merged.push(row);
     }
   });
-  originalRows=[headers,...merged];
+
+  originalRows=[headers, ...merged];
   renderTable(originalRows);
 }
 
-document.getElementById("applyFilter").addEventListener("click",applyFilters);
-document.getElementById("prevPage").addEventListener("click",()=>{ if(currentPage>1){currentPage--; renderPage(); }});
-document.getElementById("nextPage").addEventListener("click",()=>{ if(currentPage<totalPages){currentPage++; renderPage(); }});
+document.getElementById("applyFilter").addEventListener("click", applyFilters);
+document.getElementById("prevPage").addEventListener("click",()=>{ if(currentPage>1){currentPage--; renderPage();}});
+document.getElementById("nextPage").addEventListener("click",()=>{ if(currentPage<totalPages){currentPage++; renderPage();}});
+
+function parseDMY(dateStr, timeStr){
+  if(!dateStr) return new Date(0);
+
+  const parts=dateStr.split("-");
+  if(parts.length!==3) return new Date(0);
+
+  const d=parseInt(parts[0]);
+  const m=parseInt(parts[1]);
+  const y=parseInt(parts[2]);
+  const fullYear=2000+y;
+
+  let hh=0, mm=0, ss=0;
+  if(timeStr){
+    const t=timeStr.split(":").map(n=>parseInt(n));
+    hh=t[0]||0; mm=t[1]||0; ss=t[2]||0;
+  }
+
+  return new Date(fullYear, m-1, d, hh, mm, ss);
+}
 
 function applyFilters(){
   if(!originalRows.length) return;
+
   currentPage=1;
+
   const start=document.getElementById("startDate").value;
   const end=document.getElementById("endDate").value;
   const pileta=document.getElementById("piletaSelector").value;
 
-  const idxDate=headers.findIndex(h=>h.toLowerCase().includes("date")||h.toLowerCase().includes("fecha"));
+  const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
   const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
   const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
 
   filteredData=originalRows.slice(1).filter(r=>{
-    if(idxDate>=0 && start && new Date(r[idxDate])<new Date(start)) return false;
-    if(idxDate>=0 && end && new Date(r[idxDate])>new Date(end)) return false;
-    if(pileta && idxPileta>=0 && r[idxPileta]!==pileta) return false;
+    const rowDate=parseDMY(r[idxDate], r[idxTime]);
+    if(start && rowDate < new Date(start)) return false;
+    if(end && rowDate > new Date(end)) return false;
+    if(pileta && r[idxPileta] !== pileta) return false;
     return true;
   });
 
-  // Sorting
   const sumMode=document.getElementById("sumMode").checked;
+
   if(sumMode){
     filteredData.sort((a,b)=>{
-      const aNum=parseInt(a[idxPileta])||0;
-      const bNum=parseInt(b[idxPileta])||0;
-      return aNum-bNum;
+      return (parseInt(a[idxPileta])||0) - (parseInt(b[idxPileta])||0);
     });
-  } else if(idxDate>=0){
+  } else {
     filteredData.sort((a,b)=>{
-      const dateA=new Date(a[idxDate]+" "+(idxTime>=0?a[idxTime]:"00:00:00"));
-      const dateB=new Date(b[idxDate]+" "+(idxTime>=0?b[idxTime]:"00:00:00"));
-      return dateA-dateB;
+      const dateA=parseDMY(a[idxDate], a[idxTime]);
+      const dateB=parseDMY(b[idxDate], b[idxTime]);
+      return dateA - dateB;
     });
   }
 
@@ -126,16 +300,16 @@ function applyFilters(){
 }
 
 function updatePagination(){
-  totalPages=Math.ceil(filteredData.length/parseInt(document.getElementById("rowsPerPage").value));
+  totalPages=Math.ceil(filteredData.length / parseInt(document.getElementById("rowsPerPage").value));
 }
 
-function formatInt(n){ return !isNaN(n)?parseInt(n).toLocaleString("es-ES"):""; }
-function formatDec(n){ return !isNaN(n)?parseFloat(n).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2}):""; }
+function formatInt(n){ return !isNaN(n) ? parseInt(n).toLocaleString("es-ES") : ""; }
+function formatDec(n){ return !isNaN(n) ? parseFloat(n).toLocaleString("es-ES",{minimumFractionDigits:2, maximumFractionDigits:2}) : ""; }
 
 function renderPage(){
   const sumMode=document.getElementById("sumMode").checked;
   const rowsPerPage=parseInt(document.getElementById("rowsPerPage").value);
-  const pageData=sumMode?filteredData:filteredData.slice((currentPage-1)*rowsPerPage,(currentPage-1)*rowsPerPage+rowsPerPage);
+  const pageData=sumMode ? filteredData : filteredData.slice((currentPage-1)*rowsPerPage, (currentPage-1)*rowsPerPage+rowsPerPage);
 
   if(sumMode){
     const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
@@ -144,18 +318,23 @@ function renderPage(){
 
     const table=[["Pileta","Peso esperado","Peso descargado"]];
     const group={};
+
     filteredData.forEach(r=>{
       const p=r[idxPileta];
-      if(!group[p]) group[p]={peso:0,desc:0};
+      if(!group[p]) group[p]={peso:0, desc:0};
       group[p].peso+=parseFloat(r[idxPeso]||0);
       group[p].desc+=parseFloat(r[idxDesc]||0);
     });
+
     Object.keys(group).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(p=>{
       table.push([p,formatInt(group[p].peso),formatDec(group[p].desc)]);
     });
+
     renderTable(table);
+
   } else {
-    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("date")||h.toLowerCase().includes("fecha"));
+
+    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
     const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
     const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
     const idxDens=headers.findIndex(h=>h.toLowerCase()==="peso_esp_racao");
@@ -163,45 +342,57 @@ function renderPage(){
     const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
 
     const table=[["Fecha","Hora","Pileta","Densidad (Gr/Lts)","Peso esperado","Peso descargado"]];
+
     pageData.forEach(r=>{
       table.push([
-        idxDate>=0?r[idxDate]:"",
-        idxTime>=0?r[idxTime]:"",
+        r[idxDate],
+        r[idxTime],
         formatInt(r[idxPileta]),
         formatInt(r[idxDens]),
         formatInt(r[idxPeso]),
         formatDec(r[idxDesc])
       ]);
     });
+
     renderTable(table);
+
     document.getElementById("pageInfo").textContent=`Página ${currentPage} de ${totalPages}`;
     document.getElementById("prevPage").disabled=currentPage<=1;
     document.getElementById("nextPage").disabled=currentPage>=totalPages;
   }
 }
 
-document.getElementById("exportExcel").addEventListener("click",()=>{
+document.getElementById("exportExcel").addEventListener("click", ()=>{
   const sumMode=document.getElementById("sumMode").checked;
   const start=document.getElementById("startDate").value;
   const end=document.getElementById("endDate").value;
+
   const ws_data=[];
+
   if(sumMode){
     const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
     const idxPeso=headers.findIndex(h=>h.toLowerCase()==="peso");
     const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
+
     const group={};
+
     filteredData.forEach(r=>{
-      const p=r[idxPileta]; if(!group[p]) group[p]={peso:0,desc:0};
+      const p=r[idxPileta];
+      if(!group[p]) group[p]={peso:0,desc:0};
       group[p].peso+=parseFloat(r[idxPeso]||0);
       group[p].desc+=parseFloat(r[idxDesc]||0);
     });
-    ws_data.push([`Fecha: ${start||"Inicio"} - ${end||"Fin"}`,"",""]); // merged row
+
+    ws_data.push([`Fecha: ${start||"Inicio"} - ${end||"Fin"}`, "", ""]);
     ws_data.push(["Pileta","Peso esperado","Peso descargado"]);
+
     Object.keys(group).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(p=>{
-      ws_data.push([p,group[p].peso,group[p].desc]);
+      ws_data.push([p, group[p].peso, group[p].desc]);
     });
+
   } else {
-    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("date")||h.toLowerCase().includes("fecha"));
+
+    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
     const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
     const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
     const idxDens=headers.findIndex(h=>h.toLowerCase()==="peso_esp_racao");
@@ -209,32 +400,40 @@ document.getElementById("exportExcel").addEventListener("click",()=>{
     const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
 
     ws_data.push(["Fecha","Hora","Pileta","Densidad (Gr/Lts)","Peso esperado","Peso descargado"]);
+
     filteredData.forEach(r=>{
       ws_data.push([
-        idxDate>=0?r[idxDate]:"",
-        idxTime>=0?r[idxTime]:"",
-        r[idxPileta], r[idxDens], r[idxPeso], r[idxDesc]
+        r[idxDate],
+        r[idxTime],
+        r[idxPileta],
+        r[idxDens],
+        r[idxPeso],
+        r[idxDesc],
       ]);
     });
   }
+
   const wb=XLSX.utils.book_new();
   const ws=XLSX.utils.aoa_to_sheet(ws_data);
 
-  // Merge A1:C1 if sumar piletas
-  if(sumMode) ws["!merges"]=[{s:{r:0,c:0}, e:{r:0,c:2}}];
+  if(sumMode){
+    ws["!merges"]=[{s:{r:0,c:0},e:{r:0,c:2}}];
+  }
 
   XLSX.utils.book_append_sheet(wb, ws, "Tabla");
   XLSX.writeFile(wb, "tabla.xlsx");
 });
 
 function renderTable(rows){
-  const table=document.getElementById("output"); table.innerHTML="";
+  const table=document.getElementById("output");
+  table.innerHTML="";
+
   rows.forEach((r,i)=>{
     const tr=document.createElement("tr");
     r.forEach(c=>{
-      const td=document.createElement(i===0?"th":"td");
-      td.textContent=c;
-      tr.appendChild(td);
+      const el=document.createElement(i===0?"th":"td");
+      el.textContent=c;
+      tr.appendChild(el);
     });
     table.appendChild(tr);
   });
