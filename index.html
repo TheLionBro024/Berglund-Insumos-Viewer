@@ -5,9 +5,6 @@
 <title>Insumos de Berglund S.A.</title>
 
 <style>
-/* ============================================
-   Green Glow Aesthetic Variables
-============================================ */
 :root {
   --bg-color: #0b0f17;
   --card-color: #121826;
@@ -15,31 +12,69 @@
   --accent: #00ff88;
   --accent-soft: #00ff8855;
   --border-color: #00ff8844;
-  --radius: 8px;
+  --radius: 10px;
   --transition: 0.18s ease;
   --font: "Arial", sans-serif;
 }
 
-/* ============================================
-   GLOBAL STYLE
-============================================ */
+/* GLOBAL */
 body {
-  font-family: var(--font);
   background: var(--bg-color);
   color: var(--text-color);
-  padding: 28px;
-  line-height: 1.5;
+  font-family: var(--font);
+  padding: 0 20px 40px;
 }
 
 h2 {
-  margin-bottom: 16px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: center;
   color: var(--accent);
-  text-shadow: 0 0 8px var(--accent-soft);
+  text-shadow: 0 0 10px var(--accent-soft);
+  font-size: 2.2rem;
 }
 
-/* ============================================
-   INPUTS + BUTTONS
-============================================ */
+/* FILE INPUT */
+.file-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+input[type="file"] {
+  padding: 8px;
+  border-radius: var(--radius);
+  background: var(--card-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 10px var(--accent-soft);
+}
+
+/* CARD */
+.controls-card {
+  max-width: 1100px;
+  margin: auto;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: 0 0 18px var(--accent-soft);
+}
+
+/* TOP ROW */
+.filter-row {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-bottom: 20px;
+}
+
+.control-block {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
 input, button {
   padding: 8px 10px;
   border-radius: var(--radius);
@@ -47,106 +82,96 @@ input, button {
   background: var(--card-color);
   color: var(--text-color);
   margin-top: 6px;
-  margin-bottom: 20px;
   transition: var(--transition);
   box-shadow: 0 0 7px var(--accent-soft);
 }
 
-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 17px var(--accent-soft);
+input:focus { border-color: var(--accent); }
+
+/* CHECKBOX CENTER */
+.checkbox-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.checkbox-center label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border-radius: 4px;
+  border: 2px solid var(--accent);
+  cursor: pointer;
+  background: none;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--accent);
+}
+
+/* BUTTONS */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 button {
-  cursor: pointer;
   background: var(--accent);
   color: #000;
   font-weight: bold;
   border: none;
   box-shadow: 0 0 8px var(--accent-soft);
+  cursor: pointer;
 }
 
-button:hover:not(:disabled) {
-  background: #00e67a;
-  transform: translateY(-1px);
-}
+button:hover { background: #00e67a; }
 
-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* ============================================
-   CONTROLS AREA
-============================================ */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  background: var(--card-color);
-  padding: 18px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
-  box-shadow: 0 0 14px var(--accent-soft);
-}
-
-.controls label {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-}
-
+/* PAGING */
 .paging-controls {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
+  margin-top: 5px;
 }
 
-.checkbox {
-  width: auto;
-  margin-top: 12px;
-  accent-color: var(--accent);
-}
-
-/* ============================================
-   TABLE
-============================================ */
+/* TABLE */
 table {
   width: 100%;
+  margin-top: 30px;
   border-collapse: collapse;
-  margin-top: 20px;
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--card-color);
   border: 1px solid var(--border-color);
-  box-shadow: 0 0 14px var(--accent-soft);
+  background: var(--card-color);
+  box-shadow: 0 0 15px var(--accent-soft);
 }
 
 th, td {
-  padding: 10px;
+  padding: 12px;
   border-bottom: 1px solid var(--border-color);
   text-align: right;
 }
 
-th:first-child, td:first-child {
-  text-align: left;
-}
+th:first-child, td:first-child { text-align: left; }
 
 th {
-  background: #0e1524;
+  background: #0d1422;
   color: var(--accent);
-  text-shadow: 0 0 4px var(--accent-soft);
+  text-shadow: 0 0 6px var(--accent-soft);
 }
 
 tr:hover td {
-  background: rgba(0, 255, 136, 0.05);
-}
-
-/* cleaner first-row border */
-tr:last-child td {
-  border-bottom: none;
+  background: rgba(0,255,136,0.06);
 }
 </style>
 </head>
@@ -155,31 +180,44 @@ tr:last-child td {
 
 <h2>Balanceados Insumos de Berglund S.A.</h2>
 
-<input type="file" id="csvFile" accept=".csv" multiple>
+<div class="file-box">
+  <input type="file" id="csvFile" accept=".csv" multiple>
+</div>
 
-<div class="controls">
-  <label>Fecha inicio:
-    <input type="date" id="startDate">
-  </label>
+<div class="controls-card">
 
-  <label>Fecha fin:
-    <input type="date" id="endDate">
-  </label>
+  <div class="filter-row">
+    <div class="control-block">
+      <label>Fecha inicio:</label>
+      <input type="date" id="startDate">
+    </div>
 
-  <label>Pileta:
-    <input type="number" id="piletaSelector" placeholder="Dejar vacío para todas">
-  </label>
+    <div class="control-block">
+      <label>Fecha fin:</label>
+      <input type="date" id="endDate">
+    </div>
 
-  <label>
-    <input type="checkbox" id="sumMode" class="checkbox"> Sumar piletas
-  </label>
+    <div class="control-block">
+      <label>Pileta:</label>
+      <input type="number" id="piletaSelector" placeholder="Dejar vacío para todas">
+    </div>
+  </div>
 
-  <label>Líneas por página:
-    <input type="number" id="rowsPerPage" min="1" value="20">
-  </label>
+  <div class="checkbox-center">
+    <label><input type="checkbox" id="sumMode"> Sumar piletas</label>
+  </div>
 
-  <button id="applyFilter">Aplicar filtro</button>
-  <button id="exportExcel" style="display:none;">Exportar a Excel</button>
+  <div class="filter-row" style="justify-content:center;">
+    <div class="control-block">
+      <label>Líneas por página:</label>
+      <input type="number" id="rowsPerPage" min="1" value="20">
+    </div>
+  </div>
+
+  <div class="button-row">
+    <button id="applyFilter">Aplicar filtro</button>
+    <button id="exportExcel" style="display:none;">Exportar a Excel</button>
+  </div>
 
   <div class="paging-controls">
     <button id="prevPage" disabled>Anterior</button>
@@ -190,255 +228,234 @@ tr:last-child td {
 
 <table id="output"></table>
 
-<!-- JS  -->
+<!-- JS stays unchanged -->
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 <script>
-let headers=[], originalRows=[], filteredData=[], currentPage=1, totalPages=1;
+let headers = [], originalRows = [], filteredData = [], currentPage = 1, totalPages = 1;
 
-document.getElementById("csvFile").addEventListener("change", e=>{
-  const files=[...e.target.files];
-  if(!files.length) return;
+// Load CSV files
+document.getElementById("csvFile").addEventListener("change", e => {
+    const files = [...e.target.files];
+    if (!files.length) return;
 
-  originalRows=[];
-  headers=[];
-  let allData=[], filesRead=0;
+    originalRows = [];
+    headers = [];
+    let allData = [], filesRead = 0;
 
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      const lines=ev.target.result.split(/\r?\n/).filter(l=>l.trim());
-      const rows=lines.map(l=>l.split(",").map(v=>v.trim()));
-      allData.push(rows);
-      filesRead++;
-      if(filesRead===files.length) mergeData(allData);
-    };
-    reader.readAsText(file);
-  });
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = ev => {
+            const lines = ev.target.result.split(/\r?\n/).filter(l => l.trim());
+            const rows = lines.map(l => l.split(",").map(v => v.trim()));
+            allData.push(rows);
+            filesRead++;
+            if (filesRead === files.length) mergeData(allData);
+        };
+        reader.readAsText(file);
+    });
 });
 
-function mergeData(dataList){
-  const allHeaders=new Set();
-  dataList.forEach(rows => rows[0].forEach(h => allHeaders.add(h.trim())));
-  headers=[...allHeaders];
+function mergeData(dataList) {
+    const allHeaders = new Set();
+    dataList.forEach(rows => rows[0].forEach(h => allHeaders.add(h.trim())));
+    headers = [...allHeaders];
 
-  const merged=[];
-  dataList.forEach(rows=>{
-    const map=rows[0].map(h => headers.indexOf(h.trim()));
-    for(let i=1;i<rows.length;i++){
-      const row=new Array(headers.length).fill("");
-      rows[i].forEach((v,idx)=>{ if(map[idx]>=0) row[map[idx]]=v.trim(); });
-      merged.push(row);
-    }
-  });
+    const merged = [];
+    dataList.forEach(rows => {
+        const map = rows[0].map(h => headers.indexOf(h.trim()));
+        for (let i = 1; i < rows.length; i++) {
+            const row = new Array(headers.length).fill("");
+            rows[i].forEach((v, idx) => { if (map[idx] >= 0) row[map[idx]] = v.trim(); });
+            merged.push(row);
+        }
+    });
 
-  originalRows=[headers, ...merged];
-  renderTable(originalRows);
+    originalRows = [headers, ...merged];
+    renderTable(originalRows);
 }
 
+// Navigation buttons
 document.getElementById("applyFilter").addEventListener("click", applyFilters);
-document.getElementById("prevPage").addEventListener("click",()=>{ if(currentPage>1){currentPage--; renderPage();}});
-document.getElementById("nextPage").addEventListener("click",()=>{ if(currentPage<totalPages){currentPage++; renderPage();}});
+document.getElementById("prevPage").addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderPage(); } });
+document.getElementById("nextPage").addEventListener("click", () => { if (currentPage < totalPages) { currentPage++; renderPage(); } });
 
-function parseDMY(dateStr, timeStr){
-  if(!dateStr) return new Date(0);
-
-  const parts=dateStr.split("-");
-  if(parts.length!==3) return new Date(0);
-
-  const d=parseInt(parts[0]);
-  const m=parseInt(parts[1]);
-  const y=parseInt(parts[2]);
-  const fullYear=2000+y;
-
-  let hh=0, mm=0, ss=0;
-  if(timeStr){
-    const t=timeStr.split(":").map(n=>parseInt(n));
-    hh=t[0]||0; mm=t[1]||0; ss=t[2]||0;
-  }
-
-  return new Date(fullYear, m-1, d, hh, mm, ss);
+// Parse DD-MM-YY and time
+function parseDMY(dateStr, timeStr) {
+    if (!dateStr) return new Date(0);
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return new Date(0);
+    const d = parseInt(parts[0]), m = parseInt(parts[1]), y = parseInt(parts[2]);
+    const fullYear = 2000 + y;
+    let hh = 0, mm = 0, ss = 0;
+    if (timeStr) {
+        const t = timeStr.split(":").map(n => parseInt(n));
+        hh = t[0] || 0; mm = t[1] || 0; ss = t[2] || 0;
+    }
+    return new Date(fullYear, m - 1, d, hh, mm, ss);
 }
 
-function applyFilters(){
-  if(!originalRows.length) return;
+// Filter and sort
+function applyFilters() {
+    if (!originalRows.length) return;
+    currentPage = 1;
 
-  currentPage=1;
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+    const pileta = document.getElementById("piletaSelector").value;
 
-  const start=document.getElementById("startDate").value;
-  const end=document.getElementById("endDate").value;
-  const pileta=document.getElementById("piletaSelector").value;
+    const idxDate = headers.findIndex(h => h.toLowerCase().includes("fecha") || h.toLowerCase().includes("date"));
+    const idxTime = headers.findIndex(h => h.toLowerCase().includes("hora") || h.toLowerCase().includes("time"));
+    const idxPileta = headers.findIndex(h => h.toLowerCase().includes("acude"));
 
-  const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
-  const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
-  const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
-
-  filteredData=originalRows.slice(1).filter(r=>{
-    const rowDate=parseDMY(r[idxDate], r[idxTime]);
-    if(start && rowDate < new Date(start)) return false;
-    if(end && rowDate > new Date(end)) return false;
-    if(pileta && r[idxPileta] !== pileta) return false;
-    return true;
-  });
-
-  const sumMode=document.getElementById("sumMode").checked;
-
-  if(sumMode){
-    filteredData.sort((a,b)=>{
-      return (parseInt(a[idxPileta])||0) - (parseInt(b[idxPileta])||0);
+    filteredData = originalRows.slice(1).filter(r => {
+        const rowDate = parseDMY(r[idxDate], r[idxTime]);
+        if (start && rowDate < new Date(start)) return false;
+        if (end && rowDate > new Date(end)) return false;
+        if (pileta && r[idxPileta] !== pileta) return false;
+        return true;
     });
-  } else {
-    filteredData.sort((a,b)=>{
-      const dateA=parseDMY(a[idxDate], a[idxTime]);
-      const dateB=parseDMY(b[idxDate], b[idxTime]);
-      return dateA - dateB;
-    });
-  }
 
-  updatePagination();
-  document.getElementById("exportExcel").style.display="inline-block";
-  renderPage();
+    const sumMode = document.getElementById("sumMode").checked;
+    if (sumMode) {
+        filteredData.sort((a, b) => (parseInt(a[idxPileta]) || 0) - (parseInt(b[idxPileta]) || 0));
+    } else {
+        filteredData.sort((a, b) => parseDMY(a[idxDate], a[idxTime]) - parseDMY(b[idxDate], b[idxTime]));
+    }
+
+    updatePagination();
+    document.getElementById("exportExcel").style.display = "inline-block";
+    renderPage();
 }
 
-function updatePagination(){
-  totalPages=Math.ceil(filteredData.length / parseInt(document.getElementById("rowsPerPage").value));
+function updatePagination() {
+    totalPages = Math.ceil(filteredData.length / parseInt(document.getElementById("rowsPerPage").value));
 }
 
-function formatInt(n){ return !isNaN(n) ? parseInt(n).toLocaleString("es-ES") : ""; }
-function formatDec(n){ return !isNaN(n) ? parseFloat(n).toLocaleString("es-ES",{minimumFractionDigits:2, maximumFractionDigits:2}) : ""; }
+function formatInt(n) { return !isNaN(n) ? parseInt(n).toLocaleString("es-ES") : ""; }
+function formatDec(n) { return !isNaN(n) ? parseFloat(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""; }
 
-function renderPage(){
-  const sumMode=document.getElementById("sumMode").checked;
-  const rowsPerPage=parseInt(document.getElementById("rowsPerPage").value);
-  const pageData=sumMode ? filteredData : filteredData.slice((currentPage-1)*rowsPerPage, (currentPage-1)*rowsPerPage+rowsPerPage);
+function renderPage() {
+    const sumMode = document.getElementById("sumMode").checked;
+    const rowsPerPage = parseInt(document.getElementById("rowsPerPage").value);
+    const pageData = sumMode ? filteredData : filteredData.slice((currentPage - 1) * rowsPerPage, (currentPage - 1) * rowsPerPage + rowsPerPage);
 
-  if(sumMode){
-    const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
-    const idxPeso=headers.findIndex(h=>h.toLowerCase()==="peso");
-    const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
+    if (sumMode) {
+        const idxPileta = headers.findIndex(h => h.toLowerCase().includes("acude"));
+        const idxPeso = headers.findIndex(h => h.toLowerCase() === "peso");
+        const idxDesc = headers.findIndex(h => h.toLowerCase() === "racao_decarregad");
 
-    const table=[["Pileta","Peso esperado","Peso descargado"]];
-    const group={};
+        const table = [["Pileta", "Peso esperado", "Peso descargado"]];
+        const group = {};
+        filteredData.forEach(r => {
+            const p = r[idxPileta];
+            if (!group[p]) group[p] = { peso: 0, desc: 0 };
+            group[p].peso += parseFloat(r[idxPeso] || 0);
+            group[p].desc += parseFloat(r[idxDesc] || 0);
+        });
+        Object.keys(group).sort((a, b) => parseInt(a) - parseInt(b)).forEach(p => {
+            table.push([p, formatInt(group[p].peso), formatDec(group[p].desc)]);
+        });
+        renderTable(table);
+    } else {
+        const idxDate = headers.findIndex(h => h.toLowerCase().includes("fecha") || h.toLowerCase().includes("date"));
+        const idxTime = headers.findIndex(h => h.toLowerCase().includes("hora") || h.toLowerCase().includes("time"));
+        const idxPileta = headers.findIndex(h => h.toLowerCase().includes("acude"));
+        const idxDens = headers.findIndex(h => h.toLowerCase() === "peso_esp_racao");
+        const idxPeso = headers.findIndex(h => h.toLowerCase() === "peso");
+        const idxDesc = headers.findIndex(h => h.toLowerCase() === "racao_decarregad");
 
-    filteredData.forEach(r=>{
-      const p=r[idxPileta];
-      if(!group[p]) group[p]={peso:0, desc:0};
-      group[p].peso+=parseFloat(r[idxPeso]||0);
-      group[p].desc+=parseFloat(r[idxDesc]||0);
-    });
-
-    Object.keys(group).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(p=>{
-      table.push([p,formatInt(group[p].peso),formatDec(group[p].desc)]);
-    });
-
-    renderTable(table);
-
-  } else {
-
-    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
-    const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
-    const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
-    const idxDens=headers.findIndex(h=>h.toLowerCase()==="peso_esp_racao");
-    const idxPeso=headers.findIndex(h=>h.toLowerCase()==="peso");
-    const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
-
-    const table=[["Fecha","Hora","Pileta","Densidad (Gr/Lts)","Peso esperado","Peso descargado"]];
-
-    pageData.forEach(r=>{
-      table.push([
-        r[idxDate],
-        r[idxTime],
-        formatInt(r[idxPileta]),
-        formatInt(r[idxDens]),
-        formatInt(r[idxPeso]),
-        formatDec(r[idxDesc])
-      ]);
-    });
-
-    renderTable(table);
-
-    document.getElementById("pageInfo").textContent=`Página ${currentPage} de ${totalPages}`;
-    document.getElementById("prevPage").disabled=currentPage<=1;
-    document.getElementById("nextPage").disabled=currentPage>=totalPages;
-  }
+        const table = [["Fecha", "Hora", "Pileta", "Densidad (Gr/Lts)", "Peso esperado", "Peso descargado"]];
+        pageData.forEach(r => {
+            table.push([r[idxDate], r[idxTime], formatInt(r[idxPileta]), formatInt(r[idxDens]), formatInt(r[idxPeso]), formatDec(r[idxDesc])]);
+        });
+        renderTable(table);
+        document.getElementById("pageInfo").textContent = `Página ${currentPage} de ${totalPages}`;
+        document.getElementById("prevPage").disabled = currentPage <= 1;
+        document.getElementById("nextPage").disabled = currentPage >= totalPages;
+    }
 }
 
-document.getElementById("exportExcel").addEventListener("click", ()=>{
-  const sumMode=document.getElementById("sumMode").checked;
-  const start=document.getElementById("startDate").value;
-  const end=document.getElementById("endDate").value;
+// Export to Excel with top merged "Berglund S.A." row
+document.getElementById("exportExcel").addEventListener("click", () => {
+    const sumMode = document.getElementById("sumMode").checked;
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
 
-  const ws_data=[];
+    const ws_data = [];
 
-  if(sumMode){
-    const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
-    const idxPeso=headers.findIndex(h=>h.toLowerCase()==="peso");
-    const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
+    if (sumMode) {
+        const idxPileta = headers.findIndex(h => h.toLowerCase().includes("acude"));
+        const idxPeso = headers.findIndex(h => h.toLowerCase() === "peso");
+        const idxDesc = headers.findIndex(h => h.toLowerCase() === "racao_decarregad");
 
-    const group={};
+        const group = {};
+        filteredData.forEach(r => {
+            const p = r[idxPileta];
+            if (!group[p]) group[p] = { peso: 0, desc: 0 };
+            group[p].peso += parseFloat(r[idxPeso] || 0);
+            group[p].desc += parseFloat(r[idxDesc] || 0);
+        });
 
-    filteredData.forEach(r=>{
-      const p=r[idxPileta];
-      if(!group[p]) group[p]={peso:0,desc:0};
-      group[p].peso+=parseFloat(r[idxPeso]||0);
-      group[p].desc+=parseFloat(r[idxDesc]||0);
-    });
+        // Top merged row
+        ws_data.push(["Berglund S.A.", "", ""]);
 
-    ws_data.push([`Fecha: ${start||"Inicio"} - ${end||"Fin"}`, "", ""]);
-    ws_data.push(["Pileta","Peso esperado","Peso descargado"]);
+        // Keep fechas row
+        ws_data.push([`Fecha: ${start || "Inicio"} -- ${end || "Fin"}`, "", ""]);
 
-    Object.keys(group).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(p=>{
-      ws_data.push([p, group[p].peso, group[p].desc]);
-    });
+        ws_data.push(["Pileta", "Peso esperado", "Peso descargado"]);
 
-  } else {
+        Object.keys(group).sort((a, b) => parseInt(a) - parseInt(b)).forEach(p => {
+            ws_data.push([p, group[p].peso, group[p].desc]);
+        });
+    } else {
+        const idxDate = headers.findIndex(h => h.toLowerCase().includes("fecha") || h.toLowerCase().includes("date"));
+        const idxTime = headers.findIndex(h => h.toLowerCase().includes("hora") || h.toLowerCase().includes("time"));
+        const idxPileta = headers.findIndex(h => h.toLowerCase().includes("acude"));
+        const idxDens = headers.findIndex(h => h.toLowerCase() === "peso_esp_racao");
+        const idxPeso = headers.findIndex(h => h.toLowerCase() === "peso");
+        const idxDesc = headers.findIndex(h => h.toLowerCase() === "racao_decarregad");
 
-    const idxDate=headers.findIndex(h=>h.toLowerCase().includes("fecha")||h.toLowerCase().includes("date"));
-    const idxTime=headers.findIndex(h=>h.toLowerCase().includes("hora")||h.toLowerCase().includes("time"));
-    const idxPileta=headers.findIndex(h=>h.toLowerCase().includes("acude"));
-    const idxDens=headers.findIndex(h=>h.toLowerCase()==="peso_esp_racao");
-    const idxPeso=headers.findIndex(h=>h.toLowerCase()==="peso");
-    const idxDesc=headers.findIndex(h=>h.toLowerCase()==="racao_decarregad");
+        ws_data.push(["Berglund S.A."]); // Top merged row
+        ws_data.push(["Fecha", "Hora", "Pileta", "Densidad (Gr/Lts)", "Peso esperado", "Peso descargado"]);
 
-    ws_data.push(["Fecha","Hora","Pileta","Densidad (Gr/Lts)","Peso esperado","Peso descargado"]);
+        filteredData.forEach(r => {
+            ws_data.push([r[idxDate], r[idxTime], r[idxPileta], r[idxDens], r[idxPeso], r[idxDesc]]);
+        });
+    }
 
-    filteredData.forEach(r=>{
-      ws_data.push([
-        r[idxDate],
-        r[idxTime],
-        r[idxPileta],
-        r[idxDens],
-        r[idxPeso],
-        r[idxDesc],
-      ]);
-    });
-  }
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
-  const wb=XLSX.utils.book_new();
-  const ws=XLSX.utils.aoa_to_sheet(ws_data);
+    ws["!merges"] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }, // Berglund S.A.
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 2 } }  // Fecha row
+    ];
 
-  if(sumMode){
-    ws["!merges"]=[{s:{r:0,c:0},e:{r:0,c:2}}];
-  }
 
-  XLSX.utils.book_append_sheet(wb, ws, "Tabla");
-  XLSX.writeFile(wb, "tabla.xlsx");
+    XLSX.utils.book_append_sheet(wb, ws, "Tabla");
+    XLSX.writeFile(wb, "tabla.xlsx");
 });
 
-function renderTable(rows){
-  const table=document.getElementById("output");
-  table.innerHTML="";
+// Render HTML table
+function renderTable(rows) {
+    const table = document.getElementById("output");
+    table.innerHTML = "";
 
-  rows.forEach((r,i)=>{
-    const tr=document.createElement("tr");
-    r.forEach(c=>{
-      const el=document.createElement(i===0?"th":"td");
-      el.textContent=c;
-      tr.appendChild(el);
+    rows.forEach((r, i) => {
+        const tr = document.createElement("tr");
+        r.forEach(c => {
+            const el = document.createElement(i === 0 ? "th" : "td");
+            el.textContent = c;
+            tr.appendChild(el);
+        });
+        table.appendChild(tr);
     });
-    table.appendChild(tr);
-  });
 }
 </script>
+
+
+
+
 
 </body>
 </html>
